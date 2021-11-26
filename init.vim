@@ -23,20 +23,26 @@ set cursorline
 set pyxversion=3
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'gruvbox-community/gruvbox'
+" telescope 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim', { 'do': 'make'}
 Plug 'neovim/nvim-lspconfig'
+" Auto complete
+Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/nvim-compe'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'ThePrimeagen/vim-be-good'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" AirLine
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -47,11 +53,11 @@ highlight Normal guibg=none
 
 " Remaps
 let mapleader = " "
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
 
@@ -74,3 +80,12 @@ require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
 require'lspconfig'.eslint.setup{}
 EOF
 lua require'nvim-treesitter.configs'.setup{ highlight = { enable = true } }
+
+lua << EOF
+require("telescope").setup{
+    defaults = {
+        prompt_prefix = "$ ",
+        file_ignore_patterns = {"node_modules"} 
+    }
+}
+EOF
