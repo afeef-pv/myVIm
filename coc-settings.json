@@ -1,4 +1,6 @@
 {
     "coc.preferences.formatOnSaveFiletypes": ["ts", "py", "js"],
-    "eslint.autoFixOnSave": true
+    "eslint.autoFixOnSave": true,
+    "javascript.suggest.autoImports": true, 
+    "typescript.suggest.autoImports": true
 }

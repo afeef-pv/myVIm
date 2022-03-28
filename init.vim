@@ -23,25 +23,32 @@ set cursorline
 set pyxversion=3
 " Plugins
 call plug#begin('~/.vim/plugged')
+
 Plug 'gruvbox-community/gruvbox'
-" telescope 
+
+" telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim', { 'do': 'make'}
-Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
+
 " Auto complete
-Plug 'nvim-lua/completion-nvim'
-Plug 'hrsh7th/nvim-compe'
+Plug 'neovim/nvim-lspconfig'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'ThePrimeagen/vim-be-good'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " AirLine
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'ThePrimeagen/vim-be-good'
 
 call plug#end()
 
@@ -58,34 +65,24 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <C-_> <cmd>lua require("plug_config").curr_buf()<cr>
+nnoremap <leader>x :!chmod +x %<CR>
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
+" Tmux
+nnoremap  <C-f> <cmd>!tmux neww ts<CR>
 
 " Auto pranthesis and braces
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
+" inoremap {<CR> {<CR>}<ESC>O
+" inoremap {;<CR> {<CR>};<ESC>O
 
-
-source ~/.config/nvim/plug-config/lsp-config.vim
-source ~/.config/nvim/plug-config/coc.vim
-luafile ~/.config/nvim/plug-config/compe-config.lua
-lua << EOF
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
-require'lspconfig'.eslint.setup{}
-EOF
 lua require'nvim-treesitter.configs'.setup{ highlight = { enable = true } }
 
-lua << EOF
-require("telescope").setup{
-    defaults = {
-        prompt_prefix = "$ ",
-        file_ignore_patterns = {"node_modules"} 
-    }
-}
-EOF
+" Include lua files
+lua require("plug_config")
+
