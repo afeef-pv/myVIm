@@ -103,6 +103,75 @@ require'lspconfig'.gopls.setup {
     end
 }
 
+-- HTML
+require'lspconfig'.html.setup{
+    capabilities = capabilities,
+    on_attach = function()
+        print("HTML Loaded")
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dt", "<cmd>Telescope diagnostics<cr>", {
+            buffer = 0
+        })
+    end
+}
+
+-- Tailwind
+require'lspconfig'.tailwindcss.setup {
+    capabilities = capabilities,
+    on_attach = function()
+        print("TailWind Analayzer loaded")
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>dt", "<cmd>Telescope diagnostics<cr>", {
+            buffer = 0
+        })
+    end
+} -- Connect to the server
 -- Auto Comp nvim-comp
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
 local cmp = require 'cmp'

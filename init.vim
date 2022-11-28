@@ -1,5 +1,5 @@
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2 softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set exrc
@@ -25,6 +25,7 @@ set pyxversion=3
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'folke/tokyonight.nvim'
 
 " telescope
 Plug 'nvim-lua/popup.nvim'
@@ -41,6 +42,9 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 
+" prettier
+Plug 'sbdchd/neoformat'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 
@@ -52,7 +56,7 @@ Plug 'ThePrimeagen/vim-be-good'
 
 call plug#end()
 
-colorscheme gruvbox
+colorscheme tokyonight
 highlight Normal guibg=none
 
 " EslintAutoFixCommand
@@ -60,6 +64,7 @@ highlight Normal guibg=none
 
 " Remaps
 let mapleader = " "
+vmap <leader>xyy :!xclip -f -sel clip<CR>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -69,11 +74,12 @@ nnoremap <C-_> <cmd>lua require("plug_config").curr_buf()<cr>
 nnoremap <leader>x :!chmod +x %<CR>
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
+nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 " Tmux
-nnoremap  <C-f> <cmd>!tmux neww ts<CR>
+nnoremap <silent> <C-f> :silent !tmux neww ts<CR>
 
 " Auto pranthesis and braces
-" inoremap " ""<left>
+
 " inoremap ' ''<left>
 " inoremap ( ()<left>
 " inoremap [ []<left>
