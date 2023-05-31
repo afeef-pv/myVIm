@@ -1,7 +1,8 @@
 -- Native LSP
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require'lspconfig'.tsserver.setup {
     capabilities = capabilities,
+    single_file_support = true,
     on_attach = function()
         vim.keymap.set("n", "K", vim.lsp.buf.hover, {
             buffer = 0
@@ -28,6 +29,9 @@ require'lspconfig'.tsserver.setup {
             buffer = 0
         })
         vim.keymap.set("n", "<leader>dt", "<cmd>Telescope diagnostics<cr>", {
+            buffer = 0
+        })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {
             buffer = 0
         })
     end
@@ -65,7 +69,13 @@ require'lspconfig'.rust_analyzer.setup {
         vim.keymap.set("n", "<leader>dt", "<cmd>Telescope diagnostics<cr>", {
             buffer = 0
         })
-    end
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {
+            buffer = 0
+        })
+    end,
+    cmd = {
+      "rustup", "run", "stable", "rust-analyzer"
+    }
 }
 
 -- GoLnag
@@ -186,6 +196,8 @@ cmp.setup({
         ['<C-B>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i','c'}),
         ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the d>
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),

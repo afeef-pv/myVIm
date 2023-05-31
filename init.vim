@@ -65,6 +65,7 @@ highlight Normal guibg=none
 " Remaps
 let mapleader = " "
 vmap <leader>xyy :!xclip -f -sel clip<CR>
+inoremap <c-p> <nop>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
